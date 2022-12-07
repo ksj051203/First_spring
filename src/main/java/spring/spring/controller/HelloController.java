@@ -39,7 +39,7 @@ public class HelloController {
         private String name;
         public String getName() {
             return name;
-        }햣 ㅁㅇ
+        }
 
         public void setName(String name) {
             this.name = name;
