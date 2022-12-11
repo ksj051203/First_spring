@@ -1,31 +1,33 @@
 package spring.spring.service;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import spring.spring.domain.Member;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import spring.spring.domain.Member;
 import spring.spring.repository.MemoryMemberRepository;
-
+import spring.spring.repository.MemberRepository;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class MemberServiceTest {
+
+class MemberServiceTest{
     MemberService memberService;
     MemoryMemberRepository memberRepository = new MemoryMemberRepository();
 
     @BeforeEach
-    public void BeforeEach(){
+    public void beforEach(){
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository);
     }
-
     @AfterEach
-    public void afterEach() {
+    public void afterEach(){
         memberRepository.clearStore();
     }
+
     @Test
     void 회원가입() {
-        //test에서는 코드명을 한글로도 가능
-
         //given
         Member member = new Member();
         member.setName("spring");
@@ -35,34 +37,25 @@ class MemberServiceTest {
 
         //then
         Member findMember = memberService.findOne(saveId).get();
-        assertThat(member.getName()).isEqualTo(findMember.getName());
+        Assertions.assertThat(member.getName()).isEqualTo(findMember.getName());
     }
 
     @Test
-    void 중복_회원_예외() {
+    public void 중복_회원_예외() {
         //given
         Member member1 = new Member();
         member1.setName("spring");
 
         Member member2 = new Member();
-        member1.setName("spring");
+        member2.setName("spring");
 
         //when
         memberService.join(member1);
-        IllegalAccessException e = assertThrows(IllegalAccessException.class, () -> memberService.join(member2));
-        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다!");
-        /*
-        memberService.join(member2);
-        try{
-            memberService.join(member2);
-            fail();
-        }catch(IllegalStateException e){
-        }
-        */
+        assertThrows(IllegalStateException.class, () -> memberService.join(member2));
+
+        //then
 
     }
 
-    @Test
-    void findOne() {
-    }
 }
+
