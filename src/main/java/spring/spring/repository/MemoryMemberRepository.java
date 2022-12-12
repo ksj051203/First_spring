@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();
