@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.annotation.Commit;
 import spring.spring.domain.Member;
 import spring.spring.repository.MemoryMemberRepository;
 import spring.spring.repository.MemberRepository;
